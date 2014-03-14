@@ -178,7 +178,7 @@ describe Spree::Zone do
 
       context "when none of the members are included in the zone we check against" do
         before do
-          @target.members.create(country_code: 'UK')
+          @target.members.create(country_code: 'GB')
           @target.members.create(country_code: 'MX')
         end
 

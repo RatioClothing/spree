@@ -24,7 +24,7 @@ describe "Address", inaccessible: true do
   end
 
   context "country has subregions", :js => true, :focus => true do
-    before { Spree::Config[:default_country_code] = 'UK' }
+    before { Spree::Config[:default_country_code] = 'GB' }
 
     it "shows the state collection selection" do
       click_button "Checkout"
