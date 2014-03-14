@@ -201,4 +201,24 @@ describe Spree::Address do
     let(:address) { stub_model(Spree::Address) }
     specify { address.instance_eval{ require_phone? }.should be_true}
   end
+
+  context "mailing addresses" do
+    let(:address) { Spree::Address.new }
+
+    it 'handles the United States' do
+      #http://pe.usps.com/businessmail101/addressing/deliveryaddress.htm
+      address.update_attributes firstname: 'Jane', lastname: 'Miller', company: 'Miller Associates', address1: '1960 W Chelsea Ave', address2: 'Ste 2006', city: 'Allentown', region_text: 'PA', zipcode: '18104', country_code: 'US'
+
+      address.should be_valid
+      address.mailing_address.should == "JANE MILLER\nMILLER ASSOCIATES\n1960 W CHELSEA AVE STE 2006\nALLENTOWN PA 18104\nUNITED STATES"
+    end
+
+    it 'handles the United Kingdom' do
+      #From http://www.royalmail.com/personal/help-and-support/How-do-I-address-my-mail-correctly
+      address.update_attributes firstname: 'S', lastname: 'Pollard', address1: '1 Chapel Hill', city: 'Heswall', region_text: 'BOURNEMOUTH', zipcode: 'BH1 1AA', country_code: 'GB'
+
+      address.should be_valid
+      address.mailing_address.should == "S Pollard\n1 Chapel Hill\nHeswall\nBOURNEMOUTH\nBH1 1AA\nUnited Kingdom"
+    end
+  end
 end
