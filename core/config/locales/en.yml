@@ -9,14 +9,8 @@ en:
         firstname: First Name
         lastname: Last Name
         phone: Phone
-        state: State
+        region_text: State/Province/Region
         zipcode: Zip Code
-      spree/country:
-        iso: ISO
-        iso3: ISO3
-        iso_name: ISO Name
-        name: Name
-        numcode: ISO Code
       spree/credit_card:
         base: ''
         cc_type: Type
@@ -53,7 +47,7 @@ en:
         firstname: Billing address first name
         lastname: Billing address last name
         phone: Billing address phone
-        state: Billing address state
+        region_text: Billing address state
         zipcode: Billing address zipcode
       spree/order/ship_address:
         address1: Shipping address street
@@ -61,7 +55,7 @@ en:
         firstname: Shipping address first name
         lastname: Shipping address last name
         phone: Shipping address phone
-        state: Shipping address state
+        region_text: Shipping address state
         zipcode: Shipping address zipcode
       spree/payment:
         amount: Amount
@@ -96,9 +90,6 @@ en:
         amount: Amount
       spree/role:
         name: Name
-      spree/state:
-        abbr: Abbreviation
-        name: Name
       spree/tax_category:
         description: Description
         name: Name
@@ -132,9 +123,6 @@ en:
       spree/address:
         one: Address
         other: Addresses
-      spree/country:
-        one: Country
-        other: Countries
       spree/credit_card:
         one: Credit Card
         other: Credit Cards
@@ -186,9 +174,6 @@ en:
       spree/shipping_method:
         one: Shipping Method
         other: Shipping Methods
-      spree/state:
-        one: State
-        other: States
       spree/stock_movement:
         one: Stock Movement
         other: Stock Movements
@@ -955,6 +940,7 @@ en:
     received: Received
     reference: Reference
     refund: Refund
+    region: State/Province/Region
     register: Register
     registration: Registration
     remember_me: Remember me

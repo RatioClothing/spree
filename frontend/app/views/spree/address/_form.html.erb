@@ -26,39 +26,19 @@
     <%= form.label :city, Spree.t(:city) %><span class="required">*</span><br />
     <%= form.text_field :city, :class => 'required' %>
   </p>
-  <p class="field" id=<%="#{address_id}country" %>>
-    <%= form.label :country_id, Spree.t(:country) %><span class="required">*</span><br />
-    <span id=<%="#{address_id}country-selection" %>>
-      <%= form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'} %>
-    </span>
+  <p class="field" id=<%="#{address_id}region_text" %>>
+    <%= form.label :region_text, Spree.t(:region) %><br/>
+    <%= form.text_field :region_text %>
   </p>
-
-  <p class="field" id=<%="#{address_id}region" %>>
-    <% have_regions = !address.country.subregions.empty? %>
-    <%= form.label :region, Spree.t(:region) %><span class='required' id=<%="#{address_id}region-required"%>>*</span><br/>
-
-    <% region_elements = [
-       form.collection_select(:region_code, address.country.subregions,
-                          :id, :name,
-                          {:include_blank => true},
-                          {:class => have_regions ? 'required' : 'hidden',
-                          :disabled => !have_regions}) +
-       form.text_field(:region_text,
-                          :class => !have_regions ? 'required' : 'hidden',
-                          :disabled => have_regions)
-       ].join.gsub('"', "'").gsub("\n", "")
-    %>
-    <%= javascript_tag do -%>
-      $('#<%="#{address_id}region" %>').append("<%== region_elements %>");
-    <% end %>
-  </p>
-  <noscript>
-    <%= form.text_field :region_text, :class => 'required' %>
-  </noscript>
-
   <p class="field" id=<%="#{address_id}zipcode" %>>
     <%= form.label :zipcode, Spree.t(:zip) %><span class="required">*</span><br />
     <%= form.text_field :zipcode, :class => 'required' %>
+  </p>
+  <p class="field" id=<%="#{address_id}country" %>>
+    <%= form.label :country_code, Spree.t(:country) %><span class="required">*</span><br />
+    <span id=<%="#{address_id}country-selection" %>>
+      <%= form.collection_select :country_code, available_countries, :code, :name, {}, {:class => 'required'} %>
+    </span>
   </p>
   <p class="field" id=<%="#{address_id}phone" %>>
     <%= form.label :phone, Spree.t(:phone) %><span class="required">*</span><br />

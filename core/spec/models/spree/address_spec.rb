@@ -206,11 +206,11 @@ describe Spree::Address do
     let(:address) { Spree::Address.new }
 
     it 'handles the United States' do
-      #http://pe.usps.com/businessmail101/addressing/deliveryaddress.htm
+      #From http://pe.usps.com/businessmail101/addressing/deliveryaddress.htm
       address.update_attributes firstname: 'Jane', lastname: 'Miller', company: 'Miller Associates', address1: '1960 W Chelsea Ave', address2: 'Ste 2006', city: 'Allentown', region_text: 'PA', zipcode: '18104', country_code: 'US'
 
       address.should be_valid
-      address.mailing_address.should == "JANE MILLER\nMILLER ASSOCIATES\n1960 W CHELSEA AVE STE 2006\nALLENTOWN PA 18104\nUNITED STATES"
+      address.mailing_address.should == "Jane Miller\nMiller Associates\n1960 W CHELSEA AVE STE 2006\nALLENTOWN PA 18104\nUNITED STATES"
     end
 
     it 'handles the United Kingdom' do

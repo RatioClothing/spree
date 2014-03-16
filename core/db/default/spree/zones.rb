@@ -9,9 +9,9 @@ north_america = Spree::Zone.create!(name: "North America", description: "USA + C
  "Lithuania", "Cyprus", "Luxembourg", "Malta", "Denmark", "Netherlands",
  "Estonia"].
 each do |name|
-  eu_vat.zone_members.create!(country_code: Carmen::Country.named(name: name).code)
+  eu_vat.zone_members.create!(country_code: Carmen::Country.named(name).code)
 end
 
 ["United States", "Canada"].each do |name|
-  north_america.zone_members.create!(country_code: Carmen::Country.named(name: name).code)
+  north_america.zone_members.create!(country_code: Carmen::Country.named(name).code)
 end
