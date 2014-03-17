@@ -9,8 +9,8 @@ describe "Customer Details" do
   let!(:order) { create(:order, :state => 'complete', :completed_at => "2011-02-01 12:36:15") }
 
   # We need a unique name that will appear for the customer dropdown
-  let!(:ship_address) { create(:address, :country_code => 'US', :region_code => 'AL', :first_name => "Rumpelstiltskin") }
-  let!(:bill_address) { create(:address, :country_code => 'US', :region_code => 'AL', :first_name => "Rumpelstiltskin") }
+  let!(:ship_address) { create(:address, :country_code => 'US', :region_text => 'AL', :first_name => "Rumpelstiltskin") }
+  let!(:bill_address) { create(:address, :country_code => 'US', :region_text => 'AL', :first_name => "Rumpelstiltskin") }
 
   let!(:user) { create(:user, :email => 'foobar@example.com', :ship_address => ship_address, :bill_address => bill_address) }
 

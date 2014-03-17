@@ -111,7 +111,7 @@ module Spree
 
       @@address_attributes = [
         :id, :firstname, :lastname, :full_name, :address1, :address2, :city,
-        :zipcode, :phone, :company, :alternative_phone, :country_code, :region_code
+        :zipcode, :phone, :company, :alternative_phone, :country_code, :region_text
       ]
 
       @@adjustment_attributes = [
@@ -130,7 +130,7 @@ module Spree
       @@property_attributes = [:id, :name, :presentation]
 
       @@stock_location_attributes = [
-        :id, :name, :address1, :address2, :city, :region_code,
+        :id, :name, :address1, :address2, :city, :region_text,
         :country_code, :zipcode, :phone, :active
       ]
 

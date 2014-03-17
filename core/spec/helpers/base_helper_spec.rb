@@ -19,7 +19,7 @@ describe Spree::BaseHelper do
       context "checkout zone is of type country" do
         before do
           @country_zone = create(:zone, :name => "CountryZone")
-          @country_zone.members.create(country_code: 'AU')
+          @country_zone.members.create!(country_code: 'AU')
           Spree::Config[:checkout_zone] = @country_zone.name
         end
 

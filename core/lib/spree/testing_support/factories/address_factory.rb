@@ -9,7 +9,7 @@ FactoryGirl.define do
     zipcode '20170'
     phone '123-456-7890'
     alternative_phone '123-456-7899'
-    region_code 'VA'
+    region_text 'VA'
     country_code 'US'
   end
 end

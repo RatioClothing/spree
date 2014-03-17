@@ -1,16 +1,10 @@
-require 'carmen'
-
 module Spree
   class ZoneMember < Spree::Base
+    include Core::Region
+
     belongs_to :zone, class_name: 'Spree::Zone', counter_cache: true
 
-    def country
-      country = Carmen::Country.coded(country_code)
-    end
-
-    def region
-      country.subregions.coded(region_code) unless region_code.blank?
-    end
+    validates :country_code, presence: true
 
     def kind
       type = (region || country).try(:class)

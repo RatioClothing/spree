@@ -8,7 +8,7 @@ Spree::Address.create!(
   :address1 => Faker::Address.street_address,
   :address2 => Faker::Address.secondary_address,
   :city => Faker::Address.city,
-  :region_code => new_york,
+  :region_text => new_york,
   :zipcode => 16804,
   :country_code => united_states,
   :phone => Faker::PhoneNumber.phone_number)
@@ -20,7 +20,7 @@ Spree::Address.create!(
   :address1 => Faker::Address.street_address,
   :address2 => Faker::Address.secondary_address,
   :city => Faker::Address.city,
-  :region_code => new_york,
+  :region_text => new_york,
   :zipcode => 16804,
   :country_code => united_states,
   :phone => Faker::PhoneNumber.phone_number)

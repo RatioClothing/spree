@@ -9,7 +9,7 @@ FactoryGirl.define do
     backorderable_default true
 
     country_code 'US'
-    region_code 'DC'
+    region_text 'DC'
 
     factory :stock_location_with_items do
       after(:create) do |stock_location, evaluator|

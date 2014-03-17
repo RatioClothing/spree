@@ -1,14 +1,14 @@
-require 'carmen'
-
 module Spree
   class Address < Spree::Base
+    include Core::Region
+
     has_many :shipments, inverse_of: :address
 
-    validates :firstname, :lastname, :address1, :city, :country_code, presence: true
+    validates :firstname, :lastname, :address1, :city, :country_code, :region_text, presence: true
     validates :zipcode, presence: true, if: :require_zipcode?
     validates :phone, presence: true, if: :require_phone?
 
-    validate :region_validate
+    validate :region_code_for_region_zone_countries
 
     alias_attribute :first_name, :firstname
     alias_attribute :last_name, :lastname
@@ -34,17 +34,6 @@ module Spree
 
     def full_name
       "#{firstname} #{lastname}".strip
-    end
-
-    def region_text
-      region.try(:code)
-    end
-
-    def region_text=(value)
-      unless country.nil?
-        region = country.subregions.coded(value) || country.subregions.named(value)
-        self.region_code = region.try(:code)
-      end
     end
 
     def same_as?(other)
@@ -89,14 +78,6 @@ module Spree
       }
     end
 
-    def country
-      Carmen::Country.coded(country_code)
-    end
-
-    def region
-      country.subregions.coded(region_code) unless country.nil?
-    end
-
     private
       def require_phone?
         true
@@ -106,13 +87,8 @@ module Spree
         true
       end
 
-      def region_validate
-        # Skip state validation without country (also required)
-        # or when disabled by preference
-        return if country.nil?
-        return unless country.subregions.length > 0
-
-        errors.add(:region_code, :invalid) if region.nil?
+      def region_code_for_region_zone_countries
+        errors.add(:region_text, :invalid) if ZoneMember.where('country_code = ? and region_code is not null', country_code).any?
       end
   end
 end

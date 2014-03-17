@@ -29,7 +29,7 @@ module Spree
        :lastname => 'Mulder',
        :city => 'Washington',
        :country_code => 'US',
-       :region_code => 'DC',
+       :region_text => 'DC',
        :zipcode => '666',
        :phone => '666-666-6666'
     }}
@@ -150,25 +150,6 @@ module Spree
           Order.ensure_variant_id_from_api(hash)
         }.to raise_error
       end
-    end
-
-    it 'ensures_country_code for country_text' do
-      address = { country_text: 'Brazil' }
-      Order.ensure_country_code_from_api(address)
-      address[:country_code].should eq 'BR'
-    end
-
-    it "raises with proper message when cant find country" do
-      address = { :country_text => "NoNoCountry" }
-      expect {
-        Order.ensure_country_code_from_api(address)
-      }.to raise_error /NoNoCountry/
-    end
-
-    it 'ensures_region_code for region text' do
-      address = { country_code: 'US', region_text: 'Alabama' }
-      Order.ensure_region_code_from_api(address)
-      address[:region_code].should eq 'AL'
     end
 
     context "shipments" do

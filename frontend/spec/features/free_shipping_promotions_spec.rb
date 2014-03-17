@@ -30,11 +30,11 @@ describe "Free shipping promotions", :js => true do
       fill_in "Last Name", :with => "Smith"
       fill_in "Street Address", :with => "1 John Street"
       fill_in "City", :with => "City of John"
+      fill_in "State/Province/Region", :with => "CT"
       fill_in "Zip", :with => "01337"
 
       usa = Carmen::Country.coded('US')
       select usa.name, :from => "Country"
-      select usa.subregions.coded('CT').name, :from => "order[bill_address_attributes][region_code]"
 
       fill_in "Phone", :with => "555-555-5555"
 

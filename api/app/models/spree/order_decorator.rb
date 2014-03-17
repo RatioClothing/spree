@@ -3,11 +3,6 @@ require 'carmen'
 Spree::Order.class_eval do
   def self.build_from_api(user, params)
     begin
-      ensure_country_code_from_api params[:ship_address_attributes]
-      ensure_region_code_from_api params[:ship_address_attributes]
-      ensure_country_code_from_api params[:bill_address_attributes]
-      ensure_region_code_from_api params[:bill_address_attributes]
-
       order = create!
       order.associate_user!(user)
 
@@ -109,31 +104,6 @@ Spree::Order.class_eval do
       end
     rescue Exception => e
       raise "Ensure order import variant: #{e.message} #{hash}"
-    end
-  end
-
-  def self.ensure_country_code_from_api(address)
-    country_text = address.try(:delete, :country_text)
-    return if address.nil? or address[:country_code].present? or country_text.blank?
-
-    begin
-      country = Carmen::Country.coded(country_text) || Carmen::Country.named(country_text)
-      address[:country_code] = country.code
-    rescue Exception => e
-      raise "Ensure order import address country: #{e.message} #{country_text}"
-    end
-  end
-
-  def self.ensure_region_code_from_api(address)
-    region_text = address.try(:delete, :region_text)
-    return if address.nil? or address[:region_code].present? or region_text.blank?
-
-    begin
-      country = Carmen::Country.coded(address[:country_code])
-      region = country.subregions.coded(region_text) || country.subregions.named(region_text) unless country.nil?
-      address[:region_code] = region.code
-    rescue Exception => e
-      raise "Ensure order import address state: #{e.message} #{region_text}"
     end
   end
 

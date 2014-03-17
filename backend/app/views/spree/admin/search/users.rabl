@@ -3,7 +3,7 @@ attributes :email, :id
 address_fields = [:firstname, :lastname,
                   :address1, :address2,
                   :city, :zipcode,
-                  :phone, :region_code,
+                  :phone, :region_text,
                   :country_code, :company]
 
 child :ship_address => :ship_address do

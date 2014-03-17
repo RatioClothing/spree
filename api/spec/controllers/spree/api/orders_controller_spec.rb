@@ -15,15 +15,15 @@ module Spree
                         :payment_state, :email, :special_instructions,
                         :total_quantity, :display_item_total] }
 
-    let(:address_params) { { :country_code => 'US', :region_code => 'AL' } }
+    let(:address_params) { { :country_code => 'US', :region_text => 'AL' } }
 
     let(:billing_address) { { :firstname => "Tiago", :lastname => "Motta", :address1 => "Av Paulista",
                               :city => "Sao Paulo", :zipcode => "1234567", :phone => "12345678",
-                              :country_code => 'US', :region_code => 'AL'} }
+                              :country_code => 'US', :region_text => 'AL'} }
 
     let(:shipping_address) { { :firstname => "Tiago", :lastname => "Motta", :address1 => "Av Paulista",
                                :city => "Sao Paulo", :zipcode => "1234567", :phone => "12345678",
-                               :country_code => 'US', :region_code => 'AL'} }
+                               :country_code => 'US', :region_text => 'AL'} }
 
     let!(:payment_method) { create(:check_payment_method) }
 
@@ -210,13 +210,13 @@ module Spree
       let!(:line_item) { order.contents.add(variant, 1) }
       let!(:payment_method) { create(:check_payment_method) }
 
-      let(:address_params) { { :country_code => 'US', :region_code => 'AL' } }
+      let(:address_params) { { :country_code => 'US', :region_text => 'AL' } }
       let(:billing_address) { { :firstname => "Tiago", :lastname => "Motta", :address1 => "Av Paulista",
                                 :city => "Sao Paulo", :zipcode => "1234567", :phone => "12345678",
-                                :country_code => 'US', :region_code => 'AL'} }
+                                :country_code => 'US', :region_text => 'AL'} }
       let(:shipping_address) { { :firstname => "Tiago", :lastname => "Motta", :address1 => "Av Paulista",
                                  :city => "Sao Paulo", :zipcode => "1234567", :phone => "12345678",
-                                 :country_code => 'US', :region_code => 'AL'} }
+                                 :country_code => 'US', :region_text => 'AL'} }
 
       before do
         Order.any_instance.stub :user => current_api_user
@@ -225,12 +225,6 @@ module Spree
         order.ship_address = nil
         order.save
         order.state.should == "address"
-      end
-
-      def clean_address(address)
-        address.delete(:region_code)
-        address.delete(:country_code)
-        address
       end
 
       context "line_items hash not present in request" do

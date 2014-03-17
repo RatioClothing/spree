@@ -20,7 +20,7 @@ describe "Address", inaccessible: true do
 
     address = "order_bill_address_attributes"
     @country_css = "#{address}_country_code"
-    @region_css = "##{address}_region_code"
+    @region_css = "##{address}_region_text"
   end
 
   context "country has subregions", :js => true, :focus => true do

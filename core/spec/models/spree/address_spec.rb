@@ -32,6 +32,7 @@ describe Spree::Address do
       cloned.company.should == original.company
       cloned.phone.should == original.phone
       cloned.region_code.should == original.region_code
+      cloned.region_text.should == original.region_text
       cloned.zipcode.should == original.zipcode
 
       cloned.id.should_not == original.id
@@ -57,6 +58,33 @@ describe Spree::Address do
   context "validation" do
     let(:address) { build(:address, :country_code => 'US') }
 
+    context "with region zones" do
+      let (:zone) { create(:zone, name: 'RegionZone') }
+
+      before do
+        before { zone.members.create(country_code: 'US', region_code: 'CT') }
+
+        it "valid region is entered for country w/ zone" do
+          address.region_code = 'CT'
+          address.country_code = 'US'
+          address.valid?.should be_true
+        end
+
+        it "region is entered for country w/ zone and does not contain that region" do
+          address.region_code = 'NSW'
+          address.country_code = 'US'
+          address.valid?
+          address.errors["region_code"].should == ['is invalid']
+        end
+
+        it "region is entered for country w/o zone and does not contain that region" do
+          address.region_code = 'NSW'
+          address.country_code = 'GB'
+          address.valid?.should be_true
+        end
+      end
+    end
+
     it "errors when region_text is nil" do
       address.region_text = nil
       address.should_not be_valid
@@ -76,13 +104,6 @@ describe Spree::Address do
       address.should be_valid
       address.region_code.should_not be_nil
       address.region.should_not be_nil
-    end
-
-    it "region is entered but country does not contain that region" do
-      address.region_code = 'NSW'
-      address.country_code = 'US'
-      address.valid?
-      address.errors["region_code"].should == ['is invalid']
     end
 
     it "requires phone" do
@@ -183,17 +204,20 @@ describe Spree::Address do
   context '#region_text' do
     context 'region name' do
       let(:address) { stub_model(Spree::Address, country_code: 'US', :region_text => 'virginia') }
-      specify { address.region_text.should == 'VA' }
+      specify { address.region_code.should == 'VA' }
     end
 
     context 'region code in text' do
       let(:address) { stub_model(Spree::Address, country_code: 'US', :region_text => 'va') }
-      specify { address.region_text.should == 'VA' }
+      specify { address.region_code.should == 'VA' }
     end
 
-    context 'only code' do
-      let(:address) { stub_model(Spree::Address, country_code: 'US', :region_code => 'va') }
-      specify { address.region_text.should == 'VA' }
+    context 'invalid region' do
+      let(:address) { stub_model(Spree::Address, country_code: 'US', :region_text => 'Blahblah') }
+      specify do
+        address.region_text.should == 'Blahblah'
+        address.region_code.should be_nil
+      end
     end
   end
 

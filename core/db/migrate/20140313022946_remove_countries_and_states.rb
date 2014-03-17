@@ -2,10 +2,14 @@ class RemoveCountriesAndStates < ActiveRecord::Migration
   def up
     add_column :spree_addresses, :country_code, :string
     add_column :spree_addresses, :region_code, :string
+    add_column :spree_addresses, :region_text, :string
     add_column :spree_stock_locations, :country_code, :string
     add_column :spree_stock_locations, :region_code, :string
+    add_column :spree_stock_locations, :region_text, :string
     add_column :spree_zone_members, :country_code, :string
     add_column :spree_zone_members, :region_code, :string
+    add_column :spree_zone_members, :region_text, :string
+
 
     #TODO: probably a more ActiveRecordy way to do this:
     if ActiveRecord::Base.connection.adapter_name.downcase.include? "mysql"

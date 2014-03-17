@@ -99,7 +99,7 @@ module Spree
           :city       => 'Bethesda',
           :phone      => '3014445002',
           :zipcode    => '20814',
-          :region_code => 'MD',
+          :region_text => 'MD',
           :country_code => 'US',
         }
         api_put :update,
