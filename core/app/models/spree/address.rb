@@ -88,7 +88,7 @@ module Spree
       end
 
       def region_code_for_region_zone_countries
-        errors.add(:region_text, :invalid) if ZoneMember.where('country_code = ? and region_code is not null', country_code).any?
+        errors.add(:region_text, :invalid) if region.nil? && ZoneMember.where('country_code = ? and region_code is not null', country_code).any?
       end
   end
 end
